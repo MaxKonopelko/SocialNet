@@ -4,7 +4,7 @@ import { HomeComponent } from './home.Component';
 import { ServicesComponent } from './services.Component';
 import { ContactsComponent } from './contactsComponent';
 import { AboutusComponent } from './aboutusComponent';
-import { MenuType } from '../menu.component';
+import { MenuType } from './menu.Сomponent';
 
 interface IState
 {

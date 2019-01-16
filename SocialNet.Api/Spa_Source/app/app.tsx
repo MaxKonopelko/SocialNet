@@ -1,36 +1,26 @@
 import * as React from 'react';
 import { ReactNode } from 'react';
-import { MenuType, MenuComponent } from './views/menu.component';
-import { ContentComponent } from './views/content/content.Component';
+import { MainOmponent } from './main/main.Сomponent';
+import { AuthOmponent } from './auth/auth.Сomponent';
 
 interface IState
 {
-  text: string;
+  isAuth: boolean;
 }
 
 export class App extends React.Component<{}, IState>
 {
-  private refContentComponent: ContentComponent;
-
   constructor(props: {})
   {
     super(props);
-  }
 
-  public onSelectMenu = (value: MenuType) =>
-  {
-    this.refContentComponent.selectMenu(value);
-  };
+    this.state = {
+      isAuth: false,
+    };
+  }
 
   public render(): ReactNode
   {
-    return (
-      <div className="app">
-        <div className="container">
-          <MenuComponent onSelectMenu={this.onSelectMenu}/>
-          <ContentComponent ref={el => this.refContentComponent = el}/>
-        </div>
-      </div>
-    );
+    return this.state.isAuth ? <MainOmponent/> : <AuthOmponent/>;
   }
 }

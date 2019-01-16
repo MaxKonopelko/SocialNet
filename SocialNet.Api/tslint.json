@@ -1,5 +1,5 @@
 {
-  "rulesDirectory": "./Spa_Sourse/",
+  "rulesDirectory": "./Spa_Source/",
   "rules": {
     "react": true,
     "no-parameter-reassignment": true,

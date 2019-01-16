@@ -26,5 +26,21 @@ namespace SocialNet.Api.Controllers
 
             return images;
         }
+
+        [HttpGet("get-by-id/{id}")]
+        public User GetById(int id)
+        {
+            var image = _context.Users.First(x => x.Id == id);
+            return image;
+        }
+
+        [HttpPost("add")]
+        public int Add([FromBody] User user)
+        {
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+            return user.Id;
+        }
     }
 }

@@ -44,7 +44,7 @@ interface IState
   activeIndex: number;
 }
 
-export class MenuComponent extends React.Component<IProps, IState>
+export class MenuOmponent extends React.Component<IProps, IState>
 {
   public menu: IMenu[] = [
     {
