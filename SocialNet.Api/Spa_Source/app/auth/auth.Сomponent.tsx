@@ -3,12 +3,16 @@ import { ReactNode } from 'react';
 import { LoginOmponent } from './login.Сomponent';
 import { RegisterOmponent } from './register.Сomponent';
 
+interface IProps{
+  onSelectClick?: () => void;
+}
+
 interface IState
 {
   isAuthComponent: boolean;
 }
 
-export class AuthOmponent extends React.Component<{}, IState>
+export class AuthOmponent extends React.Component<IProps, IState>
 {
   constructor(props: {})
   {
@@ -33,10 +37,15 @@ export class AuthOmponent extends React.Component<{}, IState>
     });
   };
 
+  public testParent = () =>
+  {
+    this.props.onSelectClick();
+  };
+
   public render(): ReactNode
   {
     return this.state.isAuthComponent
       ? <RegisterOmponent goToAuthComponent={this.goToRegisterComponent}/>
-      : <LoginOmponent goToAuthComponent={this.goToLoginComponent}/>;
+      : <LoginOmponent onSelectClick={this.testParent} goToAuthComponent={this.goToLoginComponent}/>;
   }
 }

@@ -19,8 +19,15 @@ export class App extends React.Component<{}, IState>
     };
   }
 
+  public testParent = () =>
+  {
+    this.setState({
+      isAuth: true
+    });
+  };
+
   public render(): ReactNode
   {
-    return this.state.isAuth ? <MainOmponent/> : <AuthOmponent/>;
+    return this.state.isAuth ? <MainOmponent/> : <AuthOmponent onSelectClick={this.testParent}/>;
   }
 }

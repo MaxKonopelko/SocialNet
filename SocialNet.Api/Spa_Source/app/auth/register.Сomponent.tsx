@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { ReactNode } from 'react';
-import { UserService } from '../../services/user.services';
 import { IUser } from '../../models/models';
+import { Growl } from '../../libreris/growl';
+import { Patterns } from '../../controls/controls';
+import { RegistrationService } from '../../services/registration.service';
 
 interface IProps
 {
@@ -13,6 +15,7 @@ interface IState
   name: string;
   email: string;
   password: string;
+  pattern?: string;
 }
 
 export class RegisterOmponent extends React.Component<IProps, IState>
@@ -25,15 +28,23 @@ export class RegisterOmponent extends React.Component<IProps, IState>
       name: '',
       email: '',
       password: '',
+      pattern: Patterns.Email,
     };
   }
 
   private registerUser(user: IUser): void
   {
-    console.log('user', user);
-    UserService.add(user).then(index =>
-    {
 
+    RegistrationService.add(user).then(bool =>
+    {
+      if (!bool)
+      {
+        Growl.error('This email is already registered.');
+      }
+      else
+      {
+        Growl.notice('You have successfully registered');
+      }
     });
   }
 
@@ -66,18 +77,18 @@ export class RegisterOmponent extends React.Component<IProps, IState>
   {
     return (
       <div className="auth-form">
-        <form className="auth-form-content" onClick={this.handleSubmit}>
+        <form className="auth-form-content" onSubmit={this.handleSubmit}>
           <div className="container">
             <h1>Sign Up</h1>
             <hr/>
             <label htmlFor="name">Username</label>
-            <input type="text" name="name" onChange={this.onChange} value={this.state.name} placeholder="Enter Username"/>
+            <input type="text" name="name" onChange={this.onChange} value={this.state.name} placeholder="Enter Username" required/>
 
             <label htmlFor="email">Email</label>
-            <input type="text" name="email" onChange={this.onChange} value={this.state.email} placeholder="Enter Email"/>
+            <input type="text" name="email" onChange={this.onChange} value={this.state.email} placeholder="Enter Email" required pattern={this.state.pattern}/>
 
             <label htmlFor="password">Password</label>
-            <input type="password" name="password" onChange={this.onChange} value={this.state.password} placeholder="Enter Password"/>
+            <input type="password" name="password" onChange={this.onChange} value={this.state.password} placeholder="Enter Password" required/>
 
             {/*<label htmlFor="psw-repeat"><b>Repeat Password</b></label>*/}
             {/*<input type="password" placeholder="Repeat Password" name="psw-repeat"/>*/}
@@ -86,7 +97,7 @@ export class RegisterOmponent extends React.Component<IProps, IState>
             {/*</label>*/}
 
             <div className="clearfix">
-              <button id="sign_up" type="submit" className="signupbtn">Sign Up</button>
+              <button type="submit" className="signupbtn">Sign Up</button>
               <button id="button-red" onClick={this.props.goToAuthComponent} type="text" className="signupbtn">Go to Login</button>
             </div>
           </div>

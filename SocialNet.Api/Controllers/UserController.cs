@@ -19,28 +19,23 @@ namespace SocialNet.Api.Controllers
             _context = context;
         }
 
-        [HttpGet("get-all")]
-        public List<User> GetAll()
-        {
-            var images = _context.Users.ToList();
-
-            return images;
-        }
-
-        [HttpGet("get-by-id/{id}")]
-        public User GetById(int id)
-        {
-            var image = _context.Users.First(x => x.Id == id);
-            return image;
-        }
-
         [HttpPost("add")]
-        public int Add([FromBody] User user)
+        public bool Add([FromBody] User user)
         {
+            if (_context.Users.Any(x => x.Email == user.Email))
+            {
+                return false;
+            }
+
             _context.Users.Add(user);
             _context.SaveChanges();
-
-            return user.Id;
+            return true;
         }
+
+        [HttpPost("login")]
+        public bool Login([FromBody] User user)
+        {
+            return _context.Users.Any(x => x.Email == user.Email && x.Password == user.Password);
+        }      
     }
 }
