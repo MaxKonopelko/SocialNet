@@ -1,11 +1,12 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './app/app';
 import { Growl } from './libreris/growl';
+import { App } from './app/app';
 
 Growl.init();
 
 ReactDOM.render(
-  (<App/>),
+  <App/>,
   document.getElementById('wrapper')
-);
+)
+;

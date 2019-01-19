@@ -1,6 +1,6 @@
 import { default as React, ReactNode } from 'react';
 import { ContentComponent } from './content/content.Component';
-import { MenuOmponent, MenuType } from './content/menu.Сomponent';
+import { MenuComponent, MenuType } from './content/menu.Сomponent';
 
 interface IState
 {
@@ -26,7 +26,7 @@ export class MainOmponent extends React.Component<{}, IState>
     return (
       <div className="app">
         <div className="container">
-          <MenuOmponent onSelectMenu={this.onSelectMenu}/>
+          <MenuComponent onSelectMenu={this.onSelectMenu}/>
           <ContentComponent ref={el => this.refContentComponent = el}/>
         </div>
       </div>

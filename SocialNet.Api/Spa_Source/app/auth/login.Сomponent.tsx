@@ -37,7 +37,7 @@ export class LoginOmponent extends React.Component<IProps, IState>
       }
       else
       {
-        console.log('bool', boolAuth);
+
       }
     });
   }
